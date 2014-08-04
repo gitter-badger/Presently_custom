@@ -1,0 +1,49 @@
+<!doctype html>
+<html ng-app="PresentlyApp" ng-csp="">
+<head>
+    <meta charset="UTF-8">
+    <title>Presently</title>
+    <link rel="stylesheet" href="css/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.angularjs.org/snapshot/angular-csp.css">
+    <!--<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">-->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body ng-controller="MainCtrl">
+<div class="container">
+    <date tz="weatherService.timezone"></date>
+    <button type="button" class="settings-button" show-settings-menu ng-click="toggleSettings()"></button>
+    <div id="forecast">
+        <ul class="row list-unstyled">
+            <li ng-repeat="day in  weatherService.weather.forecast.simpleforecast.forecastday" class="col-md-3">
+                <div>
+                    <image-tooltip
+                            image-src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT2DukSMh8xphxLQsOxWpZ0jRWsCGPHfMw3-KIUzzM7lM5Guha5"
+                            text="weatherService.weather.forecast.txt_forecast.forecastday[$index * 2].fcttext_metric">
+                    </image-tooltip>
+
+                    <image-tooltip
+                            image-src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS5HoUWSKOIBF6EXIzipeYXkvrDvjjpKoRDoNOV_vJXQ3zpueCpwg"
+                           text="weatherService.weather.forecast.txt_forecast.forecastday[$index * 2 + 1].fcttext_metric">
+                    </image-tooltip>
+                    <br>
+                    <h3 class="day" ng-class="{today: day.date.weekday === currentDay}">{{ day.high.celsius}}&deg</h3>
+                    <h3 class="night" ng-class="{today: day.date.weekday === currentDay}">{{ day.low.celsius }}&deg</h3>
+                    <h4>{{ day.date.weekday + ' is ' + day.conditions}}</h4>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="settings-container">
+    <city-auto-fill matches="weatherService.cities"></city-auto-fill>
+</div>
+<script src="js/vendor/jquery-1.11.1.js"></script>
+<script src="js/vendor/jquery-ui.min.js"></script>
+<script src="js/vendor/angular.js"></script>
+<script src="js/vendor/angular-local-storage.js"></script>
+<script src="js/vendor/angular-route.js"></script>
+
+<script src="js/app.js"></script>
+</body>
+</html>
